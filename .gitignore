@@ -1,9 +1,20 @@
+# Python
 *.pyc
-**/.mypy_cache/
-**/.pytest_cache/
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
 
-.env.*
+# Environment
+.env
+.venv/
 
+# IDE
+*.code-workspace
+
+# Project specific
 expenses/
 *.db
 **/todo

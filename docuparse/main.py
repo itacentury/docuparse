@@ -1,9 +1,4 @@
-"""
-AI Bill Analyzer - Extract and organize bill data from PDFs into ODS spreadsheets
-
-This tool uses Claude AI to extract structured data from bill PDFs and automatically
-inserts them into an ODS spreadsheet with proper formatting preservation.
-"""
+"""Main application logic for docuparse."""
 
 import json
 from datetime import datetime
@@ -166,8 +161,8 @@ def print_statistics(
 
 
 def main() -> None:
-    """Run the bill analyzer."""
-    print("=== AI BILL ANALYZER ===\n")
+    """Run docuparse."""
+    print("=== DOCUPARSE ===\n")
 
     pdfs: tuple[str, ...] = select_pdf_files()
     if not pdfs:

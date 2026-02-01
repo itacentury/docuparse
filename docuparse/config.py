@@ -1,6 +1,4 @@
-"""
-Configuration constants for the AI Bill Analyzer
-"""
+"""Configuration constants for docuparse."""
 
 import os
 from pathlib import Path
@@ -8,7 +6,7 @@ from typing import Final
 
 from dotenv import load_dotenv
 
-load_dotenv(".env.bill_analyzer")
+load_dotenv()
 
 # ==============================================================================
 # MISC CONFIGURATION

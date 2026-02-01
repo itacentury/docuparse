@@ -1,0 +1,48 @@
+[project]
+name = "docuparse"
+version = "0.1.0"
+description = "AI-powered document parser for extracting structured data from PDFs"
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.75.0",
+    "requests>=2.32.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+    "python-dateutil>=2.9.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.0.0",
+    "pytest>=8.0.0",
+    "black>=24.0.0",
+    "isort>=5.0.0",
+    "pylint>=3.0.0",
+    "types-requests",
+    "types-python-dateutil",
+]
+
+[project.scripts]
+docuparse = "docuparse.main:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["docuparse*"]
+
+[tool.mypy]
+python_version = "3.14"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[tool.black]
+line-length = 88
+target-version = ["py310", "py311", "py312", "py313", "py314"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
