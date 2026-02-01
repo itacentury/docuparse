@@ -23,6 +23,14 @@
             "editor.tabSize": 4,
             "editor.insertSpaces": true,
         },
+        "[markdown]": {
+            "editor.unicodeHighlight.ambiguousCharacters": true,
+            "editor.unicodeHighlight.invisibleCharacters": true,
+            "editor.wordWrap": "on",
+            "editor.formatOnPaste": true,
+            "editor.formatOnSave": true,
+            "editor.defaultFormatter": "esbenp.prettier-vscode",
+        },
 
         // Files to exclude from explorer
         "files.exclude": {
