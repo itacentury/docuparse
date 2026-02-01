@@ -1,0 +1,9 @@
+*.pyc
+**/.mypy_cache/
+**/.pytest_cache/
+
+.env.*
+
+expenses/
+*.db
+**/todo
