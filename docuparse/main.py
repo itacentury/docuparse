@@ -51,7 +51,10 @@ def convert_date_to_iso8601(date_str: str | None) -> str | None:
 def upload_bills_to_paperless(
     valid_pdfs: list[str], valid_bills: list[dict[str, Any]]
 ) -> tuple[int, int] | None:
-    """Upload PDF bills to Paperless-ngx. Return (success, failed) counts or None if skipped."""
+    """Upload PDF bills to Paperless-ngx.
+
+    Return (success, failed) counts or None if skipped.
+    """
     if not PAPERLESS_UPLOAD_ENABLE or not (PAPERLESS_TOKEN and PAPERLESS_URL):
         print("\n⚠ Paperless not configured. Skipping upload.")
         return None
@@ -139,8 +142,19 @@ def save_bills_to_json(data: list[dict[str, Any]]) -> None:
         json.dump(data, f, ensure_ascii=False, indent=2, sort_keys=False)
 
 
+def rename_failed_pdf(pdf: str) -> None:
+    """Rename a PDF by appending '_failed' to its stem."""
+    pdf_path: Path = Path(pdf)
+    new_file: Path = pdf_path.parent / f"{pdf_path.stem}_failed.pdf"
+    try:
+        pdf_path.rename(new_file)
+    except OSError as e:
+        print(f"  ⚠ Could not rename: {e}")
+
+
 def print_statistics(
     valid_count: int,
+    skipped_count: int,
     total_count: int,
     failed_count: int,
     upload_result: tuple[int, int] | None,
@@ -149,8 +163,9 @@ def print_statistics(
     print("\n" + "=" * 50)
     print("📊 STATISTICS")
     print("=" * 50)
-    print(f"  ✓ Valid bills:   {valid_count} of {total_count}")
-    print(f"  ✗ Failed bills:  {failed_count}")
+    print(f"  ✓ Valid bills:    {valid_count} of {total_count}")
+    print(f"  ✗ Failed bills:   {failed_count}")
+    print(f"  ⏭ Skipped bills:  {skipped_count}")
 
     if upload_result is None:
         print("  ☁ Upload:        skipped")
@@ -173,14 +188,21 @@ def main() -> None:
     valid_bills: list[dict[str, Any]] = []
     valid_pdfs: list[str] = []
     failed_count: int = 0
+    skipped_count: int = 0
 
     for pdf in pdfs:
         print(f"\n📄 Analyzing: {pdf}")
+
+        if Path(pdf).stem.endswith("_failed"):
+            skipped_count += 1
+            print("  ⏭ Skipping: already marked as failed.")
+            continue
 
         response: str | None = analyze_bill_pdf(pdf)
 
         if response is None:
             failed_count += 1
+            rename_failed_pdf(pdf)
             continue
 
         bill_data: dict[str, Any] = parse_json_from_markdown(response)
@@ -190,12 +212,14 @@ def main() -> None:
 
         if result is None:
             failed_count += 1
+            rename_failed_pdf(pdf)
             continue
 
         print_bill(result)
 
         if not result["valid"]:
             failed_count += 1
+            rename_failed_pdf(pdf)
             continue
 
         valid_bills.append(bill_data)
@@ -205,7 +229,9 @@ def main() -> None:
     upload_result: tuple[int, int] | None = upload_bills_to_paperless(
         valid_pdfs, valid_bills
     )
-    print_statistics(len(valid_bills), len(pdfs), failed_count, upload_result)
+    print_statistics(
+        len(valid_bills), skipped_count, len(pdfs), failed_count, upload_result
+    )
 
 
 if __name__ == "__main__":
