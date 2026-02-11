@@ -60,7 +60,7 @@ def upload_bills_to_paperless(
         print("\n⚠ PDFs and bills lists have different lengths. Skipping upload.")
         return None
 
-    print("\n📤 Uploading to Paperless-ngx...")
+    print("\n📤 Uploading to Paperless-ngx...", end="")
 
     uploaded: int = 0
     failed: int = 0
@@ -71,7 +71,7 @@ def upload_bills_to_paperless(
             total_price: float = bill.get("total", 0.0)
             created_datetime: str | None = convert_date_to_iso8601(bill.get("date"))
 
-            task_uuid: str = upload_to_paperless(
+            upload_to_paperless(
                 pdf_path=pdf,
                 token=PAPERLESS_TOKEN,
                 paperless_url=PAPERLESS_URL,
@@ -80,11 +80,11 @@ def upload_bills_to_paperless(
                 custom_fields={PAPERLESS_TOTAL_ID: total_price},
             )
 
-            print(f"  ✓ Uploaded successfully. (Task: {task_uuid})")
+            print(".", end="")
             uploaded += 1
 
         except requests.HTTPError as e:
-            print(f"  ⚠ Upload failed: {e}")
+            print(f"\n  ⚠ Upload failed: {e}")
             failed += 1
             if hasattr(e, "response") and e.response is not None:
                 try:
@@ -93,12 +93,13 @@ def upload_bills_to_paperless(
                 except (ValueError, KeyError):
                     print(f"    Response: {e.response.text}")
         except requests.RequestException as e:
-            print(f"  ⚠ Upload failed: {e}")
+            print(f"\n  ⚠ Upload failed: {e}")
             failed += 1
         except FileNotFoundError as e:
-            print(f"  ⚠ File not found: {e}")
+            print(f"\n  ⚠ File not found: {e}")
             failed += 1
 
+    print(" Done")
     return (uploaded, failed)
 
 
