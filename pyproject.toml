@@ -15,9 +15,7 @@ dependencies = [
 dev = [
     "mypy>=1.0.0",
     "pytest>=8.0.0",
-    "black>=24.0.0",
-    "isort>=5.0.0",
-    "pylint>=3.0.0",
+    "ruff>=0.11.0",
     "types-requests",
     "types-python-dateutil",
 ]
@@ -39,10 +37,12 @@ warn_unused_configs = true
 disallow_untyped_defs = true
 disallow_incomplete_defs = true
 
-[tool.black]
+[tool.ruff]
 line-length = 88
-target-version = ["py310", "py311", "py312", "py313", "py314"]
+target-version = "py310"
 
-[tool.isort]
-profile = "black"
-line_length = 88
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["docuparse"]
