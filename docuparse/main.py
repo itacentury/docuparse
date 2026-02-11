@@ -180,7 +180,7 @@ def main() -> None:
     """Run docuparse."""
     print("=== DOCUPARSE ===\n")
 
-    pdfs: tuple[str, ...] = select_pdf_files()
+    pdfs: list[str] | None = select_pdf_files()
     if not pdfs:
         print("⚠ No files selected.")
         return
