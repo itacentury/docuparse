@@ -18,7 +18,7 @@ EXPORT_JSON_PATH: Final[Path] = Path().home() / "Downloads"
 # CLAUDE API CONFIGURATION
 # ==============================================================================
 
-CLAUDE_MODEL: Final[str] = "claude-opus-4-5-20251101"
+CLAUDE_MODEL: Final[str] = "claude-opus-4-6"
 CLAUDE_MAX_TOKENS: Final[int] = 2048
 
 # ==============================================================================
@@ -34,9 +34,7 @@ PAPERLESS_TOTAL_ID: Final[int] = 1
 # EXTRACTION PROMPT
 # ==============================================================================
 
-EXTRACTION_PROMPT: Final[
-    str
-] = """Bitte extrahiere folgende Daten aus der Rechnung:
+EXTRACTION_PROMPT: Final[str] = """Bitte extrahiere folgende Daten aus der Rechnung:
 1. Name des Supermarkts, ohne Gewerbeform o.ä., also nur 'REWE' oder 'Edeka'.
 2. Die Kategorie des Einkaufs. Zum Beispiel 'Lebensmittel', 'Restaurant' oder 'Elektronik'.
 3. Datum ohne Uhrzeit im ISO-8601 Format.
