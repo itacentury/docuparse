@@ -1,5 +1,7 @@
 # Docuparse
 
+[![CI](https://github.com/itacentury/docuparse/actions/workflows/ci.yml/badge.svg)](https://github.com/itacentury/docuparse/actions/workflows/ci.yml)
+
 AI-powered bill parser that extracts structured data from PDF receipts using Claude and optionally uploads them to Paperless-ngx.
 
 ## Requirements
