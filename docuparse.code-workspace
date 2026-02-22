@@ -5,6 +5,7 @@
         }
     ],
     "settings": {
+        "task.autoDetect": "off",
         "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
         "python.analysis.typeCheckingMode": "standard",
         "[python]": {
@@ -28,15 +29,51 @@
         "files.exclude": {
             "**/__pycache__": true,
             "**/.mypy_cache": true,
+            "**/.ruff_cache": true,
+            "**/.pytest_cache": true,
             "**/*.egg-info": true,
             "**/.venv": true,
         },
         "search.exclude": {
             "**/__pycache__": true,
             "**/.mypy_cache": true,
+            "**/.ruff_cache": true,
+            "**/.pytest_cache": true,
             "**/*.egg-info": true,
             "**/.venv": true,
         }
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "label": "Format All",
+                "type": "shell",
+                "command": "${workspaceFolder}/.venv/bin/ruff format docuparse/",
+                "group": "build",
+                "presentation": {
+                    "panel": "shared"
+                }
+            },
+            {
+                "label": "Check All",
+                "type": "shell",
+                "command": "${workspaceFolder}/.venv/bin/ruff check docuparse/ && ${workspaceFolder}/.venv/bin/ruff format --check docuparse/ && ${workspaceFolder}/.venv/bin/mypy docuparse/",
+                "group": "build",
+                "presentation": {
+                    "panel": "shared"
+                }
+            },
+            {
+                "label": "Run Docuparse",
+                "type": "shell",
+                "command": "${workspaceFolder}/.venv/bin/python -m docuparse.main",
+                "group": "build",
+                "presentation": {
+                    "panel": "shared"
+                }
+            }
+        ]
     },
     "extensions": {
         "recommendations": [
