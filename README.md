@@ -6,7 +6,7 @@ AI-powered bill parser that extracts structured data from PDF receipts using Cla
 
 ## Requirements
 
-- Python 3.10+
+- Python 3.12+
 - [Anthropic API Key](https://console.anthropic.com/)
 - (Optional) Paperless-ngx instance
 
@@ -50,10 +50,21 @@ A file dialog opens to select PDF bills. The extracted data is saved to `~/Downl
 pip install -e ".[dev]"
 ```
 
-Run checks:
+Lint and format:
 
 ```bash
-black docuparse/
-isort docuparse/
+ruff check docuparse/
+ruff format docuparse/
+```
+
+Type checking:
+
+```bash
 mypy docuparse/
+```
+
+Run tests:
+
+```bash
+pytest
 ```
