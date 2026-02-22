@@ -32,7 +32,8 @@ def upload_to_paperless(  # pylint: disable=too-many-arguments,too-many-locals
     :type paperless_url: str
     :param title: Optional title for the document
     :type title: str | None
-    :param created: Optional creation date/time (e.g., "2016-04-19" or "2016-04-19 06:15:00+02:00")
+    :param created: Optional creation date/time
+        (e.g., "2016-04-19" or "2016-04-19 06:15:00+02:00")
     :type created: str | None
     :param correspondent: Optional correspondent ID
     :type correspondent: int | None
@@ -44,8 +45,8 @@ def upload_to_paperless(  # pylint: disable=too-many-arguments,too-many-locals
     :type tags: list[int] | None
     :param archive_serial_number: Optional archive serial number
     :type archive_serial_number: int | None
-    :param custom_fields: Optional custom field assignments (dict mapping field id -> value,
-        or list of field ids)
+    :param custom_fields: Optional custom field assignments
+        (dict mapping field id -> value, or list of field ids)
     :type custom_fields: dict[int, Any] | list[int] | None
     :return: UUID of the consumption task that will process the document
     :rtype: str
