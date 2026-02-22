@@ -1,20 +1,20 @@
 [project]
 name = "docuparse"
-version = "0.1.0"
+version = "1.0.0"
 description = "AI-powered document parser for extracting structured data from PDFs"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
     "anthropic>=0.75.0",
     "requests>=2.32.0",
     "python-dotenv>=1.0.0",
-    "pydantic>=2.0.0",
-    "python-dateutil>=2.9.0",
+"python-dateutil>=2.9.0",
+    "PySide6>=6.10.2",
 ]
 
 [project.optional-dependencies]
 dev = [
     "mypy>=1.0.0",
-    "pytest>=8.0.0",
+    "pytest>=9.0.2",
     "ruff>=0.11.0",
     "types-requests",
     "types-python-dateutil",
@@ -31,7 +31,7 @@ build-backend = "setuptools.build_meta"
 include = ["docuparse*"]
 
 [tool.mypy]
-python_version = "3.14"
+python_version = "3.12"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
@@ -39,7 +39,7 @@ disallow_incomplete_defs = true
 
 [tool.ruff]
 line-length = 88
-target-version = "py310"
+target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "W"]
