@@ -35,4 +35,8 @@ jobs:
         run: mypy docuparse/
 
       - name: Pytest
-        run: pytest; rc=$?; [ $rc -eq 0 ] || [ $rc -eq 5 ]
+        run: |
+          set +e
+          pytest
+          rc=$?
+          if [ $rc -eq 0 ] || [ $rc -eq 5 ]; then exit 0; else exit $rc; fi
