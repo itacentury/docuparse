@@ -205,7 +205,13 @@ def main() -> None:
             rename_failed_pdf(pdf)
             continue
 
-        bill_data: dict[str, Any] = parse_json_from_markdown(response)
+        try:
+            bill_data: dict[str, Any] = parse_json_from_markdown(response)
+        except (json.JSONDecodeError, ValueError):
+            failed_count += 1
+            rename_failed_pdf(pdf)
+            continue
+
         print(json.dumps(bill_data, indent=2, ensure_ascii=False))
 
         result: dict[str, bool | float | str] | None = validate_bill(bill_data)

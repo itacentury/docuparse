@@ -7,7 +7,7 @@ import json
 import re
 import shutil
 from pathlib import Path
-from typing import Any, cast
+from typing import Any
 
 import dateutil.parser as dparser
 
@@ -35,7 +35,9 @@ def parse_json_from_markdown(text: str) -> dict[str, Any]:
         json_str = text
 
     result = json.loads(json_str.strip())
-    return cast(dict[str, Any], result)
+    if not isinstance(result, dict):
+        raise ValueError(f"Expected JSON object, got {type(result).__name__}")
+    return result
 
 
 def create_backup(file_path: str) -> str:
