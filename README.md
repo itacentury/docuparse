@@ -7,13 +7,14 @@ AI-powered bill parser that extracts structured data from PDF receipts using Cla
 ## Requirements
 
 - Python 3.12+
+- [uv](https://docs.astral.sh/uv/)
 - [Anthropic API Key](https://console.anthropic.com/)
 - (Optional) Paperless-ngx instance
 
 ## Installation
 
 ```bash
-pip install -e .
+uv sync
 ```
 
 ## Configuration
@@ -33,13 +34,13 @@ To disable Paperless upload, set `PAPERLESS_UPLOAD_ENABLE = False` in `docuparse
 ## Usage
 
 ```bash
-docuparse
+uv run docuparse
 ```
 
 Or run as module:
 
 ```bash
-python -m docuparse
+uv run python -m docuparse
 ```
 
 A file dialog opens to select PDF bills. The extracted data is saved to `~/Downloads/bills-YYYY-MM-DD.json`.
@@ -47,24 +48,26 @@ A file dialog opens to select PDF bills. The extracted data is saved to `~/Downl
 ## Development
 
 ```bash
-pip install -e ".[dev]"
+uv sync
 ```
+
+The `dev` dependency group is installed automatically.
 
 Lint and format:
 
 ```bash
-ruff check docuparse/
-ruff format docuparse/
+uv run ruff check docuparse/
+uv run ruff format docuparse/
 ```
 
 Type checking:
 
 ```bash
-mypy docuparse/
+uv run mypy docuparse/
 ```
 
 Run tests:
 
 ```bash
-pytest
+uv run pytest
 ```

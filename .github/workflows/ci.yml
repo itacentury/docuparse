@@ -16,27 +16,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
+          enable-cache: true
 
       - name: Install dependencies
-        run: pip install -e ".[dev]"
+        run: uv sync
 
       - name: Ruff lint
-        run: ruff check docuparse/
+        run: uv run ruff check docuparse/
 
       - name: Ruff format check
-        run: ruff format --check docuparse/
+        run: uv run ruff format --check docuparse/
 
       - name: Mypy
-        run: mypy docuparse/
+        run: uv run mypy docuparse/
 
       - name: Pytest
         run: |
           set +e
-          pytest
+          uv run pytest
           rc=$?
           if [ $rc -eq 0 ] || [ $rc -eq 5 ]; then exit 0; else exit $rc; fi

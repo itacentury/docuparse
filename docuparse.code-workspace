@@ -49,7 +49,7 @@
             {
                 "label": "Format All",
                 "type": "shell",
-                "command": "${workspaceFolder}/.venv/bin/ruff format docuparse/",
+                "command": "uv run ruff format docuparse/",
                 "group": "build",
                 "presentation": {
                     "panel": "shared"
@@ -58,7 +58,7 @@
             {
                 "label": "Check All",
                 "type": "shell",
-                "command": "${workspaceFolder}/.venv/bin/ruff check docuparse/ && ${workspaceFolder}/.venv/bin/ruff format --check docuparse/ && ${workspaceFolder}/.venv/bin/mypy docuparse/",
+                "command": "uv run ruff check docuparse/ && uv run ruff format --check docuparse/ && uv run mypy docuparse/",
                 "group": "build",
                 "presentation": {
                     "panel": "shared"
@@ -67,7 +67,7 @@
             {
                 "label": "Run Docuparse",
                 "type": "shell",
-                "command": "${workspaceFolder}/.venv/bin/python -m docuparse.main",
+                "command": "uv run python -m docuparse.main",
                 "group": "build",
                 "presentation": {
                     "panel": "shared"
